@@ -1,0 +1,39 @@
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+
+//alvx9 , um script simples que permite você bloquear o uso de determinada skill através do mapa
+
+newmem: 
+cmp word ptr[edi+0000160],(int)60 // aqui você modifica o número do mapa id que você quer bloquear determinada skill
+jne originalcode
+cmp byte ptr[eax],(int)181 // fly // aqui é o ID da skill que você deseja bloquear
+je 00478BC9
+cmp byte ptr[eax],(int)175 // pog // caso queria adicionar mais skills , copie  até o JE e mude somente o número
+je 00478BC9
+
+// continua o código
+
+originalcode:
+movzx ecx,word ptr [eax+24]
+test cx,cx
+jmp returnhere
+
+
+"ps_game.exe"+78C62:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"ps_game.exe"+78C62:
+movzx ecx,word ptr [eax+24]
+test cx,cx
+//Alt: db 0F B7 48 24 66 85 C9 
