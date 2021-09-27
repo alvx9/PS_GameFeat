@@ -1,0 +1,36 @@
+[ENABLE]
+// fix by alvx9 - 27/09/2021
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+cmp byte ptr [esi+24],(int)16 // type
+je 004D5F21
+cmp byte ptr [esi+24],(int)31 // type
+je 004D5F21
+
+originalcode:
+movzx eax,word ptr [esi+7E]
+test ax,ax
+
+exit:
+jmp returnhere
+
+"ps_game.exe"+D5ED4:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"ps_game.exe"+D5ED4:
+movzx eax,word ptr [esi+7E]
+test ax,ax
+//Alt: db 0F B7 46 7E 66 85 C0
