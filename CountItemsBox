@@ -1,0 +1,105 @@
+//Alvx9 30/09/2021
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(originalcode)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+cmp edi,40E // variant = 1038 (is one example)
+// you can put whichever you want
+je dwIncCount
+
+originalcode:
+cmp [ebx],edx
+jg ps_game.exe+7468A
+lea esi,[esp+000000AC]
+call ps_game.exe+BD3C0
+push 00
+call ps_game.exe+11C2B7
+mov edi,[ebp+000057F8]
+xor edi,eax
+add esp,04
+mov eax,esi
+mov [esp+20],edx
+call ps_game.exe+BD500
+xor esi,esi
+cmp [ebx],esi
+jng ps_game.exe+73079
+push 000F4240
+lea eax,[esp+000000B0]
+call ps_game.exe+BD3E0
+mov edx,[ebx+04]
+cmp eax,[edx+esi*8+04]
+lea ecx,[edx+esi*8]
+jae ps_game.exe+73B93
+mov eax,[ecx]
+mov edi,ps_game.exe+C91878
+call ps_game.exe+D5F30
+test eax,eax
+je ps_game.exe+73B93
+cmp dword ptr [eax+000000A0],18
+je ps_game.exe+73B93
+// count
+push 01 = count
+jmp 00473B8B
+
+
+dwIncCount:
+cmp [ebx],edx
+jg ps_game.exe+7468A
+lea esi,[esp+000000AC]
+call ps_game.exe+BD3C0
+push 00
+call ps_game.exe+11C2B7
+mov edi,[ebp+000057F8]
+xor edi,eax
+add esp,04
+mov eax,esi
+mov [esp+20],edx
+call ps_game.exe+BD500
+xor esi,esi
+cmp [ebx],esi
+jng ps_game.exe+73079
+cIncFunc:
+push 000F4240
+lea eax,[esp+000000B0]
+call ps_game.exe+BD3E0
+mov edx,[ebx+04]
+cmp eax,[edx+esi*8+04]
+lea ecx,[edx+esi*8]
+jae ps_game.exe+73B93
+mov eax,[ecx]
+mov edi,ps_game.exe+C91878
+call ps_game.exe+D5F30
+test eax,eax
+je ps_game.exe+73B93
+cmp dword ptr [eax+000000A0],18
+je ps_game.exe+73B93
+// count
+push 14 = // 20 in hex , put the amount you want
+push eax
+mov ecx,ebp
+call ps_game.exe+6BD10
+inc esi
+cmp esi,[ebx]
+jl cIncFunc
+jmp 00473079
+
+"ps_game.exe"+73B18:
+jmp newmem
+nop
+nop
+nop
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"ps_game.exe"+73B18:
+cmp [ebx],edx
+jg ps_game.exe+7468A
+//Alt: db 39 13 0F 8F 6A 0B 00 00
