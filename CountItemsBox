@@ -16,35 +16,7 @@ originalcode:
 cmp [ebx],edx
 jg ps_game.exe+7468A
 lea esi,[esp+000000AC]
-call ps_game.exe+BD3C0
-push 00
-call ps_game.exe+11C2B7
-mov edi,[ebp+000057F8]
-xor edi,eax
-add esp,04
-mov eax,esi
-mov [esp+20],edx
-call ps_game.exe+BD500
-xor esi,esi
-cmp [ebx],esi
-jng ps_game.exe+73079
-push 000F4240
-lea eax,[esp+000000B0]
-call ps_game.exe+BD3E0
-mov edx,[ebx+04]
-cmp eax,[edx+esi*8+04]
-lea ecx,[edx+esi*8]
-jae ps_game.exe+73B93
-mov eax,[ecx]
-mov edi,ps_game.exe+C91878
-call ps_game.exe+D5F30
-test eax,eax
-je ps_game.exe+73B93
-cmp dword ptr [eax+000000A0],18
-je ps_game.exe+73B93
-// count
-push 01 = count
-jmp 00473B8B
+jmp 00473B20
 
 
 dwIncCount:
@@ -78,8 +50,7 @@ test eax,eax
 je ps_game.exe+73B93
 cmp dword ptr [eax+000000A0],18
 je ps_game.exe+73B93
-// count
-push 14 = // 20 in hex , put the amount you want
+push 14
 push eax
 mov ecx,ebp
 call ps_game.exe+6BD10
